@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12 center">
+      <img src="../assets/img/quake3-logo.png" width="200" height="200">
+
+      <!-- <input type="file" (change)="inputFile($event)"> -->
+    </div>
+
+    <div class="text-center">      
+      <label class="btn btn-default" for="fileinput"  id="fakeinput" >Enviar arquivo</label>
+      <span id="selected_filename" >{{nomeArquivo}}</span>
+      <input id="fileinput" type="file" (change)="inputFileChange($event)" style="display: none;"/>
+    </div>
+
+    <div class="row center" style="padding-top: 10px;" *ngIf="existArquivo">
+        <button class="btn btn-danger">
+          <span>Gerar Log</span>
+        </button>
+    </div>
+</div>

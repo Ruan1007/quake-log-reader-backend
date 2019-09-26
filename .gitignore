@@ -27,5 +27,8 @@ target/
 /.nb-gradle/
 build/
 
+### webapp ###
+/node_modules/
+
 ### VS Code ###
 .vscode/
