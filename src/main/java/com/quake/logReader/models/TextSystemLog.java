@@ -34,7 +34,6 @@ public enum TextSystemLog {
     public static final String BREAK = ":";
     public static final String SPACE = " ";
     public static final String EQUALS = "=";
-    public static final Integer INT_ONE = 1;
 
     private String textSystem;
 

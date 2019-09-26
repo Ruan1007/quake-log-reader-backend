@@ -1,10 +1,14 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   constructor(
     private http: HttpClient
@@ -13,6 +17,8 @@ export class DashboardComponent {
   existArquivo = false;
   arquivo : any;
   nomeArquivo = "Nenhum arquivo selecionado.";
+  resultLog: any = {};
+  games = [];
 
   inputFileChange(event) {
     if(event.target.files && event.target.files[0]) {
@@ -22,11 +28,18 @@ export class DashboardComponent {
       this.nomeArquivo = event.target.files[0].name;
       this.existArquivo = true;
       this.arquivo = formData;
+      this.resultLog.isOk = false;
     }
   }
   
   gerarLog() {
-    this.http.post('http://localhost:8080/arquivoLog', this.arquivo).subscribe(response => alert('upload Ok'));
+    this.http.post('http://localhost:8080/arquivoLog', this.arquivo)
+    .subscribe(response => {
+      this.resultLog = response; 
+      this.resultLog.isOk = true;
+      this.games = this.resultLog.games;
+      console.log(response);
+    });
   }
 
 }

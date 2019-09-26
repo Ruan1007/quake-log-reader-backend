@@ -14,4 +14,37 @@
           <span>Gerar Log</span>
         </button>
     </div>
+
 </div>
+
+
+<div class="row" *ngIf="resultLog.isOk && games.length > 0">
+    <div class="col-md-12">
+      <section class="panel">
+        <div class="panel-body">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered dataTable">
+            <thead>
+              <tr>
+                <th class="col-md-2 text-center">Game Number #</th>
+                <th class="text-center">Players</th>
+                <th class="col-md-2 text-center">Game Total Kills</th>
+              </tr>
+  
+            </thead>
+            <tbody>
+              <tr *ngFor="let game of games; let i = index">
+                <td class="text-center">{{game.gameNumber}}</td>
+                <td class="text-center">{{game.playersName}}</td>
+                <td class="text-center">{{game.totalKills}}</td>
+              </tr>
+
+              <tr *ngIf="resultLog.isOk && games.length === 0">
+                <td>Nenhum resultado.</td>
+              </tr>
+  
+            </tbody>
+          </table>  
+        </div>
+      </section>
+    </div>
+  </div>

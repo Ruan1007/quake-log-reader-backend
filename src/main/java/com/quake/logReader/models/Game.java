@@ -1,29 +1,25 @@
 package com.quake.logReader.models;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 
 public class Game {
 
-    private Integer numeroGame;
+    private Integer gameNumber;
 
     //Todas as kills que aconteceram na partida.
     private Integer totalKills;
 
     //Dados dos Jogadores
-    private List<Jogador> jogadores;
+    private List<Player> players;
 
-    private LocalTime inicioPartida;
+    private String playersName;
 
-    private LocalTime fimPartida;
-
-    public Integer getNumeroGame() {
-        return numeroGame;
+    public Integer getGameNumber() {
+        return gameNumber;
     }
 
-    public void setNumeroGame(Integer numeroGame) {
-        this.numeroGame = numeroGame;
+    public void setGameNumber(Integer gameNumber) {
+        this.gameNumber = gameNumber;
     }
 
     public Integer getTotalKills() {
@@ -34,27 +30,26 @@ public class Game {
         this.totalKills = totalKills;
     }
 
-    public List<Jogador> getJogadores() {
-        return jogadores;
+    public void addTotalKills(Integer kill) {
+        if(this.totalKills == null) {
+            this.totalKills = 0;
+        }
+        this.totalKills += kill;
     }
 
-    public void setJogadores(List<Jogador> jogadores) {
-        this.jogadores = jogadores;
+    public List<Player> getPlayers() {
+        return players;
     }
 
-    public LocalTime getInicioPartida() {
-        return inicioPartida;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
-    public void setInicioPartida(LocalTime inicioPartida) {
-        this.inicioPartida = inicioPartida;
+    public String getPlayersName() {
+        return playersName;
     }
 
-    public LocalTime getFimPartida() {
-        return fimPartida;
-    }
-
-    public void setFimPartida(LocalTime fimPartida) {
-        this.fimPartida = fimPartida;
+    public void setPlayersName(String playersName) {
+        this.playersName = playersName;
     }
 }
