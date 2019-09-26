@@ -6,27 +6,24 @@ import java.util.Map;
 
 public class Game {
 
-    private Integer gameNumber;
+    private Integer numeroGame;
 
     //Todas as kills que aconteceram na partida.
     private Integer totalKills;
 
-    //Nome dos Jogadores
-    private List<String> jogadores;
-
-    // Passar nome do jogador e as kills
-    private Map<String, Integer> kills;
+    //Dados dos Jogadores
+    private List<Jogador> jogadores;
 
     private LocalTime inicioPartida;
 
     private LocalTime fimPartida;
 
-    public Integer getGameNumber() {
-        return gameNumber;
+    public Integer getNumeroGame() {
+        return numeroGame;
     }
 
-    public void setGameNumber(Integer gameNumber) {
-        this.gameNumber = gameNumber;
+    public void setNumeroGame(Integer numeroGame) {
+        this.numeroGame = numeroGame;
     }
 
     public Integer getTotalKills() {
@@ -37,20 +34,12 @@ public class Game {
         this.totalKills = totalKills;
     }
 
-    public List<String> getJogadores() {
+    public List<Jogador> getJogadores() {
         return jogadores;
     }
 
-    public void setJogadores(List<String> jogadores) {
+    public void setJogadores(List<Jogador> jogadores) {
         this.jogadores = jogadores;
-    }
-
-    public Map<String, Integer> getKills() {
-        return kills;
-    }
-
-    public void setKills(Map<String, Integer> kills) {
-        this.kills = kills;
     }
 
     public LocalTime getInicioPartida() {

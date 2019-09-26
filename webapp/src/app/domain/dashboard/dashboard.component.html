@@ -1,8 +1,6 @@
 <div class="row">
     <div class="col-md-12 center">
       <img src="../assets/img/quake3-logo.png" width="200" height="200">
-
-      <!-- <input type="file" (change)="inputFile($event)"> -->
     </div>
 
     <div class="text-center">      
@@ -12,7 +10,7 @@
     </div>
 
     <div class="row center" style="padding-top: 10px;" *ngIf="existArquivo">
-        <button class="btn btn-danger">
+        <button class="btn btn-danger" (click)="gerarLog()">
           <span>Gerar Log</span>
         </button>
     </div>

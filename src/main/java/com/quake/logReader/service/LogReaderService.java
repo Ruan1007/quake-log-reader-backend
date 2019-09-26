@@ -1,14 +1,12 @@
 package com.quake.logReader.service;
 
 import com.quake.logReader.models.Game;
-import com.quake.logReader.models.Log;
+import com.quake.logReader.models.Jogador;
 import com.quake.logReader.models.TextSystemLog;
 import org.springframework.stereotype.Service;
 
-import javax.xml.soap.Text;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
@@ -22,13 +20,14 @@ public class LogReaderService {
      * @return
      * @throws FileNotFoundException
      */
-    public Log leituraLog(File arquivo) throws FileNotFoundException {
+    public List<Game> leituraLog(File arquivo) throws FileNotFoundException {
         try {
             Reader log = new FileReader(arquivo);
             BufferedReader lerArq = new BufferedReader(log);
 
             List<Integer> linhasTotal = lerArq.lines().map(Integer::valueOf).collect(Collectors.toList());
             List<Game> games = new ArrayList<>();
+            List<Jogador> jogadores = new ArrayList<>();
             Game game = null;
             int gameNumber = 1;
             for(int x = 0; x > linhasTotal.size(); x++){
@@ -39,23 +38,36 @@ public class LogReaderService {
 
                     if (word.equals(TextSystemLog.INIT_GAME.getTextSystem())) {
                         game = new Game();
-                        game.setGameNumber(gameNumber);
+                        game.setNumeroGame(gameNumber);
                     }
 
+                    if(word.equals(TextSystemLog.CLIENT_CONNECT.getTextSystem())) {
+                        Integer codJogador = new Integer(st.nextToken());
+                        Jogador existeJogadorNaLista = jogadores.stream().filter(jogador -> {
+                            return jogador.getCodJogador().equals(codJogador);
+                        }).findFirst().orElse(null);
+
+                        if(null == existeJogadorNaLista){
+                            String nomeJogador = "";
+                            Jogador jogador = new Jogador(codJogador, nomeJogador);
+                        }
+                    }
 
                     if (word.equals(TextSystemLog.SHUTDOWN_GAME.getTextSystem())) {
+                        game.setJogadores(jogadores);
                         games.add(game);
                         word = lerArq.readLine();
                         if(word.equals(TextSystemLog.INIT_GAME.getTextSystem())) {
                             game = new Game();
-                            game.setGameNumber(gameNumber);
+                            jogadores = new ArrayList<>();
+                            game.setNumeroGame(gameNumber);
                         }
                     }
 
                 }
             }
 
-            return null;
+            return games;
         } catch (IOException e){
             throw new FileNotFoundException(e.getMessage());
         }

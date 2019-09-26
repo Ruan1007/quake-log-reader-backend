@@ -11,20 +11,22 @@ export class DashboardComponent {
   ) { }
 
   existArquivo = false;
-  formData = new FormData();
+  arquivo : any;
   nomeArquivo = "Nenhum arquivo selecionado.";
 
   inputFileChange(event) {
     if(event.target.files && event.target.files[0]) {
       const arquivo = event.target.files[0];
-      this.formData.append('arquivo', arquivo);
+      const formData = new FormData();
+      formData.append('arquivo', arquivo);
       this.nomeArquivo = event.target.files[0].name;
       this.existArquivo = true;
+      this.arquivo = formData;
     }
   }
   
   gerarLog() {
-    this.http.post('http://localhost:8080/arquivoLog', this.formData).subscribe(response => console.log('upload Ok'));
+    this.http.post('http://localhost:8080/arquivoLog', this.arquivo).subscribe(response => alert('upload Ok'));
   }
 
 }
