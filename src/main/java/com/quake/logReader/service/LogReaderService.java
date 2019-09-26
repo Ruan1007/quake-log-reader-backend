@@ -87,14 +87,15 @@ public class LogReaderService {
             playerKill.addKills(INT_ONE);
         }
 
-        TypeOfDeath typeOfDeath = TypeOfDeath.getTypeOfDeathById(finalTypeOfDeathCod);
-        if(null ==  playerKilled.getTypeOfDeaths() && CollectionUtils.isEmpty(playerKilled.getTypeOfDeaths())){
-            List<String> typeOfDeathNames = new ArrayList<>();
-            typeOfDeathNames.add(typeOfDeath.getName());
-            playerKilled.setTypeOfDeaths(typeOfDeathNames);
-        }else {
-            playerKilled.getTypeOfDeaths().add(typeOfDeath.getName());
-        }
+        //TODO
+//        TypeOfDeath typeOfDeath = TypeOfDeath.getTypeOfDeathById(finalTypeOfDeathCod);
+//        if(null ==  playerKilled.getTypeOfDeaths() && CollectionUtils.isEmpty(playerKilled.getTypeOfDeaths())){
+//            List<String> typeOfDeathNames = new ArrayList<>();
+//            typeOfDeathNames.add(typeOfDeath.getName());
+//            playerKilled.setTypeOfDeaths(typeOfDeathNames);
+//        }else {
+//            playerKilled.getTypeOfDeaths().add(typeOfDeath.getName());
+//        }
 
         game.addTotalKills(INT_ONE);
     }
@@ -149,7 +150,7 @@ public class LogReaderService {
      * @param gameNumber
      */
     private void getGame(Game game, List<Player> players, Integer gameNumber) {
-        game.setPlayers(players);
+        game.setPlayers(players.stream().sorted(Comparator.comparingInt(Player::getKills)).collect(Collectors.toList()));
         List<String> names = players.stream().map(p -> p.getPlayerName()).collect(Collectors.toList());
         String nameOfAllPlayers = String.join(", ", names);
         game.setPlayersName(nameOfAllPlayers);

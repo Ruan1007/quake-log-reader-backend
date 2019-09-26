@@ -14,6 +14,8 @@ public class Player {
 
     private List<String> typeOfDeaths;
 
+    private boolean isFisrtPlayer;
+
     public Player(Integer playerCod, String playerName, Integer kills, Integer suicide) {
         this.playerCod = playerCod;
         this.playerName = playerName;
@@ -77,5 +79,13 @@ public class Player {
             this.suicide = 0;
         }
         this.suicide += kill;
+    }
+
+    public boolean isFisrtPlayer() {
+        return isFisrtPlayer;
+    }
+
+    public void setFisrtPlayer(boolean fisrtPlayer) {
+        isFisrtPlayer = fisrtPlayer;
     }
 }

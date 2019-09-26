@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,10 +26,12 @@ public class LogReaderController {
     public Log upload(@RequestParam("arquivo") MultipartFile log) {
         try {
             final File systemDir = new File(System.getProperty("java.io.tmpdir"), log.getName());
+            Files.deleteIfExists(Paths.get(systemDir.getPath()));
+            Files.createDirectories(Paths.get(systemDir.getPath()));
             log.transferTo(systemDir);
             List<String> lines = Files.lines(Paths.get(systemDir.getPath())).collect(Collectors.toList());
-            Log resultLog = logReaderService.logReader(lines, new Log());
-            return resultLog;
+
+            return logReaderService.logReader(lines, new Log());
         } catch (IOException e) {
             e.printStackTrace();
             return new Log();

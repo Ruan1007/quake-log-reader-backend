@@ -13,12 +13,17 @@
         <button class="btn btn-danger" (click)="gerarLog()">
           <span>Gerar Log</span>
         </button>
+
+        <a *ngIf="viewGame.isVisualizar">
+            <span class="btn btn-primary" (click)="return()"> Voltar</span>
+        </a>
+
     </div>
 
 </div>
 
 
-<div class="row" *ngIf="resultLog.isOk && games.length > 0">
+<div class="row" *ngIf="(resultLog.isOk && games.length > 0)">
     <div class="col-md-12">
       <section class="panel">
         <div class="panel-body">
@@ -33,7 +38,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let game of games; let i = index">
-                <td class="text-center">{{game.gameNumber}}</td>
+                <td class="text-center" (click)="viewGameSelected(game)" >{{game.gameNumber}}</td>
                 <td class="text-center">{{game.playersName}}</td>
                 <td class="text-center">{{game.totalKills}}</td>
               </tr>
@@ -47,4 +52,20 @@
         </div>
       </section>
     </div>
+  </div>
+
+  <!-- Visualizar Game -->
+  <div *ngIf="viewGame.isVisualizar">
+      <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Game Number #{{viewGame.gameNumber}}</h5>
+            <div *ngFor="let player of viewGame.players; let i = index">
+                <span></span>
+            </div>
+          </div>
+        </div>
+
+        <pre>
+          {{viewGame | json}}
+        </pre>
   </div>

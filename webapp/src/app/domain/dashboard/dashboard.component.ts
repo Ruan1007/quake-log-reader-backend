@@ -19,6 +19,7 @@ export class DashboardComponent {
   nomeArquivo = "Nenhum arquivo selecionado.";
   resultLog: any = {};
   games = [];
+  viewGame: any = {};
 
   inputFileChange(event) {
     if(event.target.files && event.target.files[0]) {
@@ -38,8 +39,18 @@ export class DashboardComponent {
       this.resultLog = response; 
       this.resultLog.isOk = true;
       this.games = this.resultLog.games;
-      console.log(response);
     });
+  }
+
+  viewGameSelected(game) {
+    this.viewGame = game;
+    this.viewGame.isVisualizar = true;
+    this.resultLog.isOk = false;
+  }
+
+  return() {
+    this.resultLog.isOk = true;
+    this.viewGame = undefined;
   }
 
 }
